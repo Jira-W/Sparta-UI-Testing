@@ -12,7 +12,7 @@ describe 'testing the demoqa registration page' do
     @email = Faker::Internet.free_email
     @username = Faker::Internet.user_name
     @about_yourself = Faker::Hipster.paragraph
-    @password = Faker::Internet.password(10, 12, true)
+    @password = Faker::Internet.password(8)
     @month_num = Faker::Number.between(1, 10)
     @day_num = Faker::Number.between(1, 31)
     @year_num = Faker::Number.between(1950, 2014)
