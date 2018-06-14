@@ -12,7 +12,7 @@ describe 'testing the demoqa registration page' do
     @email = Faker::Internet.free_email
     @username = Faker::Internet.user_name
     @about_yourself = Faker::Hipster.paragraph
-    @password = Faker::Internet.password(8)
+    @password = Faker::Internet.password(10, 12, true)
     @month_num = Faker::Number.between(1, 10)
     @day_num = Faker::Number.between(1, 31)
     @year_num = Faker::Number.between(1950, 2014)
@@ -48,6 +48,9 @@ describe 'testing the demoqa registration page' do
   #
     it 'should accept a hobby status selection of Dance, Reading, or Cricket' do
       @driver.select_hobby_option(@hobby_option)
+    end
+    it 'should select a hobby status selection of the new input' do
+      @driver.check_select_hobby_option(@hobby_option)
     end
   #
     it 'should have a country default of Afghanistan' do

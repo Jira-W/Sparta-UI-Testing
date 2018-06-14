@@ -74,9 +74,11 @@ class SeleniumDemoReg
   # hobby option management - Difficulty Medium
 
   def select_hobby_option(hobby)
-    @chrome_driver.find_element(:xpath, "//input[@value='#{hobby}']").click
+    @selected_hobby = @chrome_driver.find_element(:xpath, "//input[@value='#{hobby}']").click
   end
-
+  def check_select_hobby_option(hobby)
+    @chrome_driver.find_element(:xpath, "//input[@value='#{hobby}']").selected?
+  end
   # Select Country - Difficulty HARD
 
   # Look online how to handle option lists with Selenium in Ruby - you need to get used to solving problems
