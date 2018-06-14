@@ -1,23 +1,25 @@
 require 'spec_helper'
 
+
 describe 'testing the demoqa registration page' do
 
   before(:all) do
     @driver = SeleniumDemoReg.new
     @driver.access_registration_form
-    @firstname = Faker::Name.first_name
-    @lastname = Faker::Name.last_name
-    p @country = Faker::Address.country
-    @phone_num = Faker::Base.numerify('01##########')
-    @email = Faker::Internet.free_email
-    @username = Faker::Internet.user_name
-    @about_yourself = Faker::Hipster.paragraph
-    @password = Faker::Internet.password(10, 12, true)
-    @month_num = Faker::Number.between(1, 10)
-    @day_num = Faker::Number.between(1, 31)
-    @year_num = Faker::Number.between(1950, 2014)
-    @marital_option = ["single","married","divorced"].sample
-    @hobby_option = ["dance","reading","cricket "].sample
+    @randomFormValue = Generator.new.form_generator_value
+    @firstname = @randomFormValue.firstname_gen
+    @lastname = @randomFormValue.lastname_gen
+    p @country = @randomFormValue.country_gen
+    @phone_num = @randomFormValue.phonenum_gen
+    @email = @randomFormValue.email_gen
+    @username = @randomFormValue.username_gen
+    @about_yourself = @randomFormValue.para_gen
+    @password = @randomFormValue.password_gen
+    @month_num = @randomFormValue.month_gen
+    @day_num = @randomFormValue.day_gen
+    @year_num = @randomFormValue.year_gen
+    @marital_option = @randomFormValue.marital_gen
+    @hobby_option = @randomFormValue.hobby_gen
   end
 
   context 'positive paths for the registration form and register' do
@@ -57,11 +59,11 @@ describe 'testing the demoqa registration page' do
       expect(@driver.get_selected_country).to eq 'Afghanistan'
     end
     it 'should accept a new country value' do
-      if @country.match(" ")
-        @driver.country_dropdown_list_select('Japan')
-      else
+      # if @country.match(" ")
+      #   @driver.country_dropdown_list_select('Japan')
+      # else
         @driver.country_dropdown_list_select(@country)
-      end
+
     end
     it 'accept a new DOB' do
       @driver.dob_month_list_select(@month_num)
@@ -101,6 +103,9 @@ describe 'testing the demoqa registration page' do
     end
     it 'should submit registration form' do
       @driver.click_submit
+    end
+    it 'should display registration successful message'do
+      @driver.check_registration_successful
     end
     it 'should display registration successful message'do
       @driver.check_registration_successful
